@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Building2, TrendingUp } from "lucide-react";
 
 interface HeroProps {
-  onOpenWaitlist: () => void;
+  onOpenWaitlist: (mode?: 'waitlist' | 'free-lead') => void;
 }
 
 const Hero = ({ onOpenWaitlist }: HeroProps) => {
@@ -43,7 +43,7 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
             <Button 
               size="lg" 
               className="text-lg px-8 py-6 orange-glow hover:scale-105 transition-transform"
-              onClick={onOpenWaitlist}
+              onClick={() => onOpenWaitlist('waitlist')}
             >
               <Building2 className="w-5 h-5 mr-2" />
               Check Availability in Dallas
@@ -52,15 +52,15 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
               size="lg" 
               variant="outline" 
               className="text-lg px-8 py-6 border-2"
-              onClick={onOpenWaitlist}
+              onClick={() => onOpenWaitlist('free-lead')}
             >
-              View Sample Lead
+              Get One Lead Free
             </Button>
           </div>
 
           {/* Trust indicator */}
           <p className="text-sm text-muted-foreground pt-4">
-            No credit card required • 3-minute setup • Cancel anytime
+            Try one free lead • No credit card • No sales calls
           </p>
         </div>
       </div>
