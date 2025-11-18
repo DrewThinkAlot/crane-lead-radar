@@ -1,0 +1,71 @@
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Building2, TrendingUp } from "lucide-react";
+
+interface HeroProps {
+  onOpenWaitlist: () => void;
+}
+
+const Hero = ({ onOpenWaitlist }: HeroProps) => {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
+      {/* Background grid effect */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-20" />
+      
+      <div className="container max-w-6xl relative z-10">
+        <div className="text-center space-y-8 animate-slide-up">
+          {/* Badge */}
+          <div className="flex justify-center">
+            <Badge variant="secondary" className="px-4 py-2 text-sm font-mono bg-secondary/20 text-secondary border border-secondary/30 green-glow">
+              <TrendingUp className="w-4 h-4 mr-2" />
+              Tracking 1,200+ Active Commercial Projects in DFW
+            </Badge>
+          </div>
+
+          {/* Main Headline */}
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+            Stop Bidding on{" "}
+            <span className="text-muted-foreground line-through">15-Year-Old Roofs</span>
+            <br />
+            <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Get the Leads Before the Crane Arrives
+            </span>
+          </h1>
+
+          {/* Subheadline */}
+          <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+            We track City of Dallas <span className="text-foreground font-semibold">'Right-of-Way' permits</span> to alert you when commercial buildings book cranes, lane closures, and staging areas.{" "}
+            <span className="text-secondary font-semibold">100% exclusive data.</span>
+          </p>
+
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+            <Button 
+              size="lg" 
+              className="text-lg px-8 py-6 orange-glow hover:scale-105 transition-transform"
+              onClick={onOpenWaitlist}
+            >
+              <Building2 className="w-5 h-5 mr-2" />
+              Check Availability in Dallas
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="text-lg px-8 py-6 border-2"
+              onClick={onOpenWaitlist}
+            >
+              View Sample Lead
+            </Button>
+          </div>
+
+          {/* Trust indicator */}
+          <p className="text-sm text-muted-foreground pt-4">
+            No credit card required • 3-minute setup • Cancel anytime
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default Hero;
