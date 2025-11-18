@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, AlertTriangle } from "lucide-react";
 
 interface PricingProps {
-  onOpenWaitlist: () => void;
+  onOpenWaitlist: (mode?: 'waitlist' | 'free-lead') => void;
 }
 
 const Pricing = ({ onOpenWaitlist }: PricingProps) => {
@@ -70,13 +70,17 @@ const Pricing = ({ onOpenWaitlist }: PricingProps) => {
             <Button 
               className="w-full text-lg py-6 orange-glow hover:scale-105 transition-transform"
               size="lg"
-              onClick={onOpenWaitlist}
+              onClick={() => onOpenWaitlist('waitlist')}
             >
               Secure Your Spot Now
             </Button>
 
             <p className="text-center text-sm text-muted-foreground mt-4">
               No setup fees • 14-day money-back guarantee
+            </p>
+            
+            <p className="text-center text-xs text-muted-foreground mt-2">
+              Not sure yet? <button onClick={() => onOpenWaitlist('free-lead')} className="text-secondary hover:underline font-semibold">Get one lead free first →</button>
             </p>
           </div>
         </Card>

@@ -9,9 +9,10 @@ import { Building2, Mail, User, Briefcase } from "lucide-react";
 interface WaitlistModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
+  mode?: 'waitlist' | 'free-lead';
 }
 
-const WaitlistModal = ({ open, onOpenChange }: WaitlistModalProps) => {
+const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalProps) => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
@@ -23,10 +24,17 @@ const WaitlistModal = ({ open, onOpenChange }: WaitlistModalProps) => {
     e.preventDefault();
     
     // Here you would typically send the data to your backend
-    toast({
-      title: "You're on the list!",
-      description: "We'll reach out within 24 hours to secure your spot.",
-    });
+    if (mode === 'free-lead') {
+      toast({
+        title: "Check your inbox!",
+        description: "Your free lead is on the way. Delivered within 2 minutes.",
+      });
+    } else {
+      toast({
+        title: "You're on the list!",
+        description: "We'll reach out within 24 hours to secure your spot.",
+      });
+    }
     
     onOpenChange(false);
     setFormData({ name: "", email: "", company: "" });
@@ -38,11 +46,22 @@ const WaitlistModal = ({ open, onOpenChange }: WaitlistModalProps) => {
         <DialogHeader>
           <div className="flex items-center gap-2 mb-2">
             <Building2 className="w-6 h-6 text-primary" />
-            <DialogTitle className="text-2xl">Secure Your Spot</DialogTitle>
+            <DialogTitle className="text-2xl">
+              {mode === 'free-lead' ? 'Get Your Free Lead' : 'Secure Your Spot'}
+            </DialogTitle>
           </div>
           <DialogDescription className="text-base">
-            Join the waitlist for exclusive access to Dallas commercial roofing leads.
-            <span className="block mt-2 text-destructive font-semibold">Only 1 seat remaining.</span>
+            {mode === 'free-lead' ? (
+              <>
+                We'll send you one high-value commercial roofing lead from last week to prove our data quality.
+                <span className="block mt-2 text-secondary font-semibold">Zero commitment. Zero risk.</span>
+              </>
+            ) : (
+              <>
+                Join the waitlist for exclusive access to Dallas commercial roofing leads.
+                <span className="block mt-2 text-destructive font-semibold">Only 1 seat remaining.</span>
+              </>
+            )}
           </DialogDescription>
         </DialogHeader>
 
@@ -94,7 +113,7 @@ const WaitlistModal = ({ open, onOpenChange }: WaitlistModalProps) => {
           </div>
 
           <Button type="submit" className="w-full orange-glow" size="lg">
-            Join Waitlist
+            {mode === 'free-lead' ? 'Send My Free Lead' : 'Join Waitlist'}
           </Button>
 
           <p className="text-xs text-center text-muted-foreground">
