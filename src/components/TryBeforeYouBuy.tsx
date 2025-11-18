@@ -81,7 +81,7 @@ const TryBeforeYouBuy = ({ onOpenFreeLead }: TryBeforeYouBuyProps) => {
               </div>
               <div>
                 <p className="text-muted-foreground mb-1">FILED DATE</p>
-                <p className="text-foreground">Dec 10, 2024</p>
+                <p className="text-foreground">Last Week</p>
               </div>
             </div>
           </div>
