@@ -5,12 +5,20 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Building2, Mail, User, Briefcase } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
 
 interface WaitlistModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   mode?: 'waitlist' | 'free-lead';
 }
+
+const formSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100),
+  email: z.string().trim().email("Invalid email address").max(255),
+  company: z.string().trim().min(1, "Company is required").max(100),
+});
 
 const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalProps) => {
   const { toast } = useToast();
@@ -19,25 +27,65 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
     email: "",
     company: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Here you would typically send the data to your backend
-    if (mode === 'free-lead') {
-      toast({
-        title: "Check your inbox!",
-        description: "Your free lead is on the way. Delivered within 2 minutes.",
-      });
-    } else {
-      toast({
-        title: "You're on the list!",
-        description: "We'll reach out within 24 hours to secure your spot.",
-      });
+    try {
+      // Validate form data
+      const validatedData = formSchema.parse(formData);
+      
+      setIsSubmitting(true);
+
+      if (mode === 'free-lead') {
+        // Call edge function to send email notifications
+        const { data, error } = await supabase.functions.invoke('send-free-lead-notification', {
+          body: validatedData
+        });
+
+        if (error) {
+          console.error("Error sending free lead notification:", error);
+          throw new Error("Failed to send notification. Please try again.");
+        }
+
+        console.log("Free lead notification sent:", data);
+        
+        toast({
+          title: "Check your inbox!",
+          description: "Your free lead is on the way. Delivered within 2 minutes.",
+        });
+      } else {
+        // Waitlist mode
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        
+        toast({
+          title: "You're on the list!",
+          description: "We'll reach out within 24 hours to secure your spot.",
+        });
+      }
+
+      onOpenChange(false);
+      setFormData({ name: "", email: "", company: "" });
+    } catch (error) {
+      console.error("Form submission error:", error);
+      
+      if (error instanceof z.ZodError) {
+        toast({
+          title: "Validation Error",
+          description: error.errors[0].message,
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
+          variant: "destructive",
+        });
+      }
+    } finally {
+      setIsSubmitting(false);
     }
-    
-    onOpenChange(false);
-    setFormData({ name: "", email: "", company: "" });
   };
 
   return (
@@ -78,6 +126,7 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               required
               className="bg-background border-border"
+              disabled={isSubmitting}
             />
           </div>
 
@@ -94,6 +143,7 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               required
               className="bg-background border-border"
+              disabled={isSubmitting}
             />
           </div>
 
@@ -109,15 +159,30 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
               required
               className="bg-background border-border"
+              disabled={isSubmitting}
             />
           </div>
 
-          <Button type="submit" className="w-full orange-glow" size="lg">
-            {mode === 'free-lead' ? 'Send My Free Lead' : 'Join Waitlist'}
+          <Button 
+            type="submit" 
+            className="w-full orange-glow text-lg py-6"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              "Sending..."
+            ) : mode === 'free-lead' ? (
+              "Send My Free Lead"
+            ) : (
+              "Join Waitlist"
+            )}
           </Button>
 
           <p className="text-xs text-center text-muted-foreground">
-            By joining, you agree to receive emails about Dallas Roof Radar. Unsubscribe anytime.
+            {mode === 'free-lead' ? (
+              "No credit card • No sales calls • Delivered in 2 minutes"
+            ) : (
+              "Limited to 3 subscribers per city"
+            )}
           </p>
         </form>
       </DialogContent>
