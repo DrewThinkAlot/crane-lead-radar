@@ -1,7 +1,12 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import { Resend } from "https://esm.sh/resend@4.0.0";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
+
+const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+const supabaseServiceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+const supabase = createClient(supabaseUrl, supabaseServiceRoleKey);
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -25,6 +30,25 @@ const handler = async (req: Request): Promise<Response> => {
     const { name, email, company }: FreeLeadRequest = await req.json();
 
     console.log("Processing free lead request:", { name, email, company });
+
+    // Insert record into database
+    const { data: leadRequest, error: dbError } = await supabase
+      .from('free_lead_requests')
+      .insert({
+        name,
+        email,
+        company,
+        status: 'pending'
+      })
+      .select()
+      .single();
+
+    if (dbError) {
+      console.error("Database error:", dbError);
+      throw new Error("Failed to save lead request");
+    }
+
+    console.log("Lead request saved to database:", leadRequest);
 
     // Send notification to the business owner
     const ownerEmail = await resend.emails.send({
@@ -67,6 +91,20 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     console.log("Prospect confirmation sent successfully:", prospectEmail);
+
+    // Update record with successful delivery timestamp
+    const { error: updateError } = await supabase
+      .from('free_lead_requests')
+      .update({
+        status: 'sent',
+        lead_sent_at: new Date().toISOString()
+      })
+      .eq('id', leadRequest.id);
+
+    if (updateError) {
+      console.error("Failed to update lead request status:", updateError);
+      // Don't throw error since emails were sent successfully
+    }
 
     return new Response(
       JSON.stringify({ 
