@@ -56,8 +56,19 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
           description: "Your free lead is on the way. Delivered within 2 minutes.",
         });
       } else {
-        // Waitlist mode
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        // Waitlist mode - insert into database
+        const { error } = await supabase
+          .from('waitlist_signups')
+          .insert({
+            name: validatedData.name,
+            email: validatedData.email,
+            company: validatedData.company,
+          });
+
+        if (error) {
+          console.error("Error saving waitlist signup:", error);
+          throw new Error("Failed to save signup. Please try again.");
+        }
         
         toast({
           title: "You're on the list!",
