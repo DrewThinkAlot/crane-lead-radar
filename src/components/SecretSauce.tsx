@@ -5,18 +5,18 @@ const SecretSauce = () => {
   const features = [
     {
       icon: Eye,
-      title: "Hidden Signals",
-      description: "We don't just scrape building permits. We track crane reservations and sidewalk closures—the signals that big money is being spent."
+      title: "The Old Way (Failure)",
+      description: "Waiting for roofing permits. Result: You call the GC, but they already signed a contract with someone else. You're too late to the plan room."
     },
     {
       icon: UserCheck,
-      title: "Direct-to-Owner",
-      description: "Bypass the GC. Many of our leads are Property Managers filing permits directly. Be the first to call."
+      title: "The New Way (Success)",
+      description: "Tracking New Construction permits. Result: You call the GC while they are still budgeting. You get the 'Last Look' at the bid during the buyout phase."
     },
     {
       icon: Filter,
-      title: "No Residential Junk",
-      description: "Our algorithms filter out driveways and house pools. You only get commercial/multi-family leads."
+      title: "Massive Volume",
+      description: "Orlando is booming. We track dozens of new commercial starts every month—warehouses, strip malls, apartment complexes. All before submittals close."
     }
   ];
 
@@ -25,10 +25,10 @@ const SecretSauce = () => {
       <div className="container max-w-6xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            The <span className="text-primary">Secret Sauce</span>
+            Why <span className="text-primary">It Works</span>
           </h2>
           <p className="text-xl text-muted-foreground">
-            Why our data is worth more than standard building permits
+            By the time a 'Roofing Permit' is filed, the job is already taken
           </p>
         </div>
 

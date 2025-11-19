@@ -18,24 +18,22 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
           <div className="flex justify-center">
             <Badge variant="secondary" className="px-4 py-2 text-sm font-mono bg-secondary/20 text-secondary border border-secondary/30 green-glow">
               <TrendingUp className="w-4 h-4 mr-2" />
-              Tracking 1,200+ Active Commercial Projects in DFW
+              Tracking New Commercial Builds in Orlando
             </Badge>
           </div>
 
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-            Stop Bidding on{" "}
-            <span className="text-muted-foreground line-through">15-Year-Old Roofs</span>
-            <br />
+            Bid on the Roof{" "}
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Get the Leads Before the Crane Arrives
+              Before the Walls Are Up
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            We track City of Dallas <span className="text-foreground font-semibold">'Right-of-Way' permits</span> to alert you when commercial buildings book cranes, lane closures, and staging areas.{" "}
-            <span className="text-secondary font-semibold">100% exclusive data.</span>
+            We track <span className="text-foreground font-semibold">New Commercial Construction permits</span> in Orlando. Get the General Contractor's direct contact info the day they break ground, and win the sub-contract{" "}
+            <span className="text-secondary font-semibold">before your competitors even know it exists.</span>
           </p>
 
           {/* CTA Buttons */}
@@ -46,7 +44,7 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
               onClick={() => onOpenWaitlist('waitlist')}
             >
               <Building2 className="w-5 h-5 mr-2" />
-              Check Availability in Dallas
+              Check Availability in Orlando
             </Button>
             <Button 
               size="lg" 
@@ -54,7 +52,7 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
               className="text-lg px-8 py-6 border-2"
               onClick={() => onOpenWaitlist('free-lead')}
             >
-              Get One Lead Free
+              Get One 'New Build' Lead Free
             </Button>
           </div>
 

@@ -4,23 +4,23 @@ import { ArrowUpRight, Construction, AlertCircle } from "lucide-react";
 const LiveFeed = () => {
   const leads = [
     {
-      address: "13907 Noel Rd",
-      status: "Crane Lift (350 Ton)",
-      owner: "Galleria Hotel",
+      address: "5-Story Apartment Complex",
+      status: "Open for Bids",
+      owner: "GC: Brasfield & Gorrie",
       value: "High",
       isNew: true
     },
     {
-      address: "2811 Maple Ave",
-      status: "Sidewalk Closure (Roof Staging)",
-      owner: "Crescent Realty",
+      address: "Strip Mall Addition",
+      status: "Planning / Buyout Phase",
+      owner: "GC: Wharton-Smith",
       value: "High",
       isNew: true
     },
     {
-      address: "8350 N Central Expy",
-      status: "Lane Closure + Equipment Storage",
-      owner: "Park Place Tower LLC",
+      address: "Medical Office Building (3 Story)",
+      status: "Hard Bid Phase",
+      owner: "GC: Suffolk Construction",
       value: "High",
       isNew: false
     }
@@ -55,7 +55,7 @@ const LiveFeed = () => {
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                 <div className="w-3 h-3 rounded-full bg-secondary"></div>
               </div>
-              <span className="font-mono text-sm text-muted-foreground">dallas_permits_feed.log</span>
+              <span className="font-mono text-sm text-muted-foreground">orlando_new_construction.log</span>
             </div>
             <Construction className="w-5 h-5 text-primary" />
           </div>
@@ -83,7 +83,7 @@ const LiveFeed = () => {
                         <span className="text-terminal-text">Status:</span> {lead.status}
                       </div>
                       <div>
-                        <span className="text-terminal-text">Owner:</span> {lead.owner}
+                        <span className="text-terminal-text">{lead.owner}</span>
                       </div>
                       <div className="flex items-center gap-1">
                         <span className="text-terminal-text">Value:</span>

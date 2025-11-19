@@ -40,48 +40,50 @@ const TryBeforeYouBuy = ({ onOpenFreeLead }: TryBeforeYouBuyProps) => {
           <div className="p-6 font-mono text-sm space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="text-muted-foreground mb-1">PROPERTY ADDRESS</p>
+                <p className="text-muted-foreground mb-1">PROJECT TYPE</p>
                 <p className="text-foreground font-semibold flex items-center gap-2">
                   <Building2 className="w-4 h-4 text-primary" />
-                  13907 Noel Rd, Dallas, TX 75240
+                  New Commercial Warehouse (50k sq ft)
                 </p>
               </div>
               <div>
-                <p className="text-muted-foreground mb-1">PERMIT TYPE</p>
+                <p className="text-muted-foreground mb-1">LOCATION</p>
                 <p className="text-foreground font-semibold">
-                  Crane Lift (350 Ton) + Sidewalk Closure
+                  7850 Universal Blvd, Orlando, FL 32819
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="text-muted-foreground mb-1">PROPERTY OWNER</p>
+                <p className="text-muted-foreground mb-1">APPLICANT (GENERAL CONTRACTOR)</p>
                 <p className="text-foreground font-semibold">
-                  Galleria Hotel Management LLC
+                  Balfour Beatty Construction
                 </p>
               </div>
               <div>
-                <p className="text-muted-foreground mb-1">PROJECT VALUE</p>
+                <p className="text-muted-foreground mb-1">EST. PROJECT VALUE</p>
                 <p className="text-secondary font-semibold flex items-center gap-2">
                   <DollarSign className="w-4 h-4" />
-                  HIGH ($200K+ Est.)
+                  $2,500,000
                 </p>
               </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <p className="text-muted-foreground mb-1">CONTACT INFO</p>
-                <p className="text-foreground flex items-center gap-2">
-                  <Phone className="w-4 h-4 text-primary" />
-                  <span className="blur-sm select-none">214-555-XXXX</span>
-                  <Badge variant="secondary" className="text-xs">Available to subscribers</Badge>
+                <p className="text-muted-foreground mb-1">ROOF STATUS</p>
+                <p className="text-foreground font-semibold">
+                  Uncontracted / Buyout Phase
                 </p>
               </div>
               <div>
-                <p className="text-muted-foreground mb-1">FILED DATE</p>
-                <p className="text-foreground">Last Week</p>
+                <p className="text-muted-foreground mb-1">ACTION</p>
+                <p className="text-foreground flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-primary" />
+                  <span className="blur-sm select-none">Unlock GC Contact Info</span>
+                  <Badge variant="secondary" className="text-xs">Subscribers only</Badge>
+                </p>
               </div>
             </div>
           </div>
