@@ -14,6 +14,36 @@ export type Database = {
   }
   public: {
     Tables: {
+      free_lead_requests: {
+        Row: {
+          company: string
+          created_at: string
+          email: string
+          id: string
+          lead_sent_at: string | null
+          name: string
+          status: string | null
+        }
+        Insert: {
+          company: string
+          created_at?: string
+          email: string
+          id?: string
+          lead_sent_at?: string | null
+          name: string
+          status?: string | null
+        }
+        Update: {
+          company?: string
+          created_at?: string
+          email?: string
+          id?: string
+          lead_sent_at?: string | null
+          name?: string
+          status?: string | null
+        }
+        Relationships: []
+      }
       waitlist_signups: {
         Row: {
           company: string
