@@ -32,7 +32,7 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            We track <span className="text-foreground font-semibold">New Commercial Construction permits</span> in Orlando. Get the General Contractor's direct contact info the day they break ground, and win the sub-contract{" "}
+            We track <span className="text-foreground font-semibold">New Commercial Construction permits</span> in Orlando. Get the General Contractor's direct contact info the day they file the permit, and win the sub-contract{" "}
             <span className="text-secondary font-semibold">before your competitors even know it exists.</span>
           </p>
 
