@@ -11,8 +11,7 @@ interface SampleRecord {
   address: string;
   building_age: number;
   estimated_warranty_expiration: string;
-  property_owner_name: string;
-  owner_phone: string;
+  contact_note: string;
 }
 
 const FreeSampleSection = () => {
@@ -22,9 +21,8 @@ const FreeSampleSection = () => {
   useEffect(() => {
     const fetchSamples = async () => {
       const { data, error } = await supabase
-        .from('commercial_buildings')
+        .from('public_sample_buildings')
         .select('*')
-        .eq('is_sample_record', true)
         .limit(3);
 
       if (error) {
@@ -96,8 +94,7 @@ const FreeSampleSection = () => {
                   <th className="px-4 py-3 text-left text-muted-foreground font-semibold">Address</th>
                   <th className="px-4 py-3 text-left text-muted-foreground font-semibold">Age</th>
                   <th className="px-4 py-3 text-left text-muted-foreground font-semibold">Warranty Exp</th>
-                  <th className="px-4 py-3 text-left text-muted-foreground font-semibold">Owner</th>
-                  <th className="px-4 py-3 text-left text-muted-foreground font-semibold">Phone</th>
+                  <th className="px-4 py-3 text-left text-muted-foreground font-semibold">Contact Info</th>
                 </tr>
               </thead>
               <tbody>
@@ -117,8 +114,7 @@ const FreeSampleSection = () => {
                         year: 'numeric' 
                       })}
                     </td>
-                    <td className="px-4 py-4 text-foreground">{record.property_owner_name}</td>
-                    <td className="px-4 py-4 text-foreground">{record.owner_phone}</td>
+                    <td className="px-4 py-4 text-muted-foreground italic">{record.contact_note}</td>
                   </tr>
                 ))}
               </tbody>

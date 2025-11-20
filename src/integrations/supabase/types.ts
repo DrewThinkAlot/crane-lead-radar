@@ -253,7 +253,57 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_sample_buildings: {
+        Row: {
+          address: string | null
+          building_age: number | null
+          city: string | null
+          contact_note: string | null
+          created_at: string | null
+          estimated_warranty_expiration: string | null
+          id: string | null
+          last_roof_permit_date: string | null
+          property_management_company: string | null
+          property_name: string | null
+          property_type: string | null
+          square_footage: number | null
+          year_built: number | null
+          zip_code: string | null
+        }
+        Insert: {
+          address?: string | null
+          building_age?: number | null
+          city?: string | null
+          contact_note?: never
+          created_at?: string | null
+          estimated_warranty_expiration?: string | null
+          id?: string | null
+          last_roof_permit_date?: string | null
+          property_management_company?: string | null
+          property_name?: string | null
+          property_type?: string | null
+          square_footage?: number | null
+          year_built?: number | null
+          zip_code?: string | null
+        }
+        Update: {
+          address?: string | null
+          building_age?: number | null
+          city?: string | null
+          contact_note?: never
+          created_at?: string | null
+          estimated_warranty_expiration?: string | null
+          id?: string | null
+          last_roof_permit_date?: string | null
+          property_management_company?: string | null
+          property_name?: string | null
+          property_type?: string | null
+          square_footage?: number | null
+          year_built?: number | null
+          zip_code?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
