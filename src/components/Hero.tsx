@@ -1,12 +1,30 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Building2, TrendingUp } from "lucide-react";
+import { Building2, TrendingUp, AlertCircle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface HeroProps {
   onOpenWaitlist: (mode?: 'waitlist' | 'free-lead') => void;
 }
 
 const Hero = ({ onOpenWaitlist }: HeroProps) => {
+  const [isSoldOut, setIsSoldOut] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAvailability = async () => {
+      const { count } = await supabase
+        .from('database_purchases')
+        .select('*', { count: 'exact', head: true })
+        .eq('payment_status', 'completed');
+
+      setIsSoldOut((count || 0) >= 5);
+      setLoading(false);
+    };
+
+    checkAvailability();
+  }, []);
   return (
     <section className="relative min-h-screen flex items-center justify-center px-4 py-20 overflow-hidden">
       {/* Background grid effect */}
@@ -37,24 +55,46 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
-            <Button 
-              size="lg" 
-              className="text-lg px-8 py-6 orange-glow hover:scale-105 transition-transform"
-              onClick={() => onOpenWaitlist('waitlist')}
-            >
-              <Building2 className="w-5 h-5 mr-2" />
-              Buy Database for $499
-            </Button>
-            <Button 
-              size="lg" 
-              variant="outline" 
-              className="text-lg px-8 py-6 border-2"
-              onClick={() => onOpenWaitlist('free-lead')}
-            >
-              See 3 Sample Records Free
-            </Button>
-          </div>
+          {loading ? (
+            <div className="py-6 text-muted-foreground">Loading...</div>
+          ) : isSoldOut ? (
+            <div className="space-y-4 pt-4">
+              <div className="flex items-center justify-center gap-2 text-destructive">
+                <AlertCircle className="w-6 h-6" />
+                <span className="text-2xl font-bold">SOLD OUT</span>
+              </div>
+              <p className="text-lg text-muted-foreground">
+                All 5 copies of the current database have been claimed
+              </p>
+              <Button 
+                size="lg" 
+                variant="secondary"
+                className="text-lg px-8 py-6"
+                onClick={() => onOpenWaitlist('waitlist')}
+              >
+                Join Waitlist for Next Release
+              </Button>
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+              <Button 
+                size="lg" 
+                className="text-lg px-8 py-6 orange-glow hover:scale-105 transition-transform"
+                onClick={() => onOpenWaitlist('waitlist')}
+              >
+                <Building2 className="w-5 h-5 mr-2" />
+                Buy Database for $499
+              </Button>
+              <Button 
+                size="lg" 
+                variant="outline" 
+                className="text-lg px-8 py-6 border-2"
+                onClick={() => onOpenWaitlist('free-lead')}
+              >
+                See 3 Sample Records Free
+              </Button>
+            </div>
+          )}
 
           {/* Trust indicator */}
           <p className="text-sm text-muted-foreground pt-4">
