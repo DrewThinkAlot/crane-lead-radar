@@ -18,22 +18,22 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
           <div className="flex justify-center">
             <Badge variant="secondary" className="px-4 py-2 text-sm font-mono bg-secondary/20 text-secondary border border-secondary/30 green-glow">
               <TrendingUp className="w-4 h-4 mr-2" />
-              Tracking New Commercial Builds in Orlando
+              70 Commercial Buildings. Warranties Expiring.
             </Badge>
           </div>
 
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-            Bid on the Roof{" "}
+            70 Commercial Buildings in Orlando.{" "}
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-              Before the Walls Are Up
+              Warranties Expiring. Owners Ready to Buy.
             </span>
           </h1>
 
           {/* Subheadline */}
           <p className="text-xl md:text-2xl text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            We track <span className="text-foreground font-semibold">New Commercial Construction permits</span> in Orlando. Get the General Contractor's direct contact info the day they file the permit, and win the sub-contract{" "}
-            <span className="text-secondary font-semibold">before your competitors even know it exists.</span>
+            We pulled <span className="text-foreground font-semibold">15+ years of permit records</span> and compiled the only database of commercial properties hitting warranty expiration.{" "}
+            <span className="text-secondary font-semibold">Get property owner contact info for buildings that need a new roof now.</span>
           </p>
 
           {/* CTA Buttons */}
@@ -44,7 +44,7 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
               onClick={() => onOpenWaitlist('waitlist')}
             >
               <Building2 className="w-5 h-5 mr-2" />
-              Check Availability in Orlando
+              Buy Database for $499
             </Button>
             <Button 
               size="lg" 
@@ -52,13 +52,13 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
               className="text-lg px-8 py-6 border-2"
               onClick={() => onOpenWaitlist('free-lead')}
             >
-              Get One 'New Build' Lead Free
+              See 3 Sample Records Free
             </Button>
           </div>
 
           {/* Trust indicator */}
           <p className="text-sm text-muted-foreground pt-4">
-            Try one free lead • No credit card • No sales calls
+            One-time payment • Full database access • Permanent download link
           </p>
         </div>
       </div>
