@@ -8,24 +8,28 @@ import {
 const FAQ = () => {
   const faqs = [
     {
-      question: "Is this just old building permits?",
-      answer: "No. We track live Right-of-Way data which is often faster and more accurate than standard building permits. When a property manager books a crane or closes a lane, they're telling you money is about to be spent—before the traditional permit systems catch up."
+      question: "How do you calculate warranty expiration dates?",
+      answer: "We pull the last roof permit date from Orange County records and add 20 years (the standard commercial roof warranty period). This gives property owners a clear timeline of when they'll need a replacement roof."
     },
     {
-      question: "Who is this for?",
-      answer: "Commercial Roofers, Waterproofing Consultants, HVAC suppliers, and any contractor who wants to get ahead of major commercial renovation projects. If you're tired of fighting over shared leads on Angi or HomeAdvisor, this is your alternative."
+      question: "Why are these properties better than chasing roofing permits?",
+      answer: "By the time a roofing permit is filed, the contract is already signed. Our database shows buildings before they file permits—while property owners are still budgeting and comparing bids. You're proactive, not reactive."
     },
     {
-      question: "Why only 3 subscriptions per city?",
-      answer: "If we sell to everyone, the data loses its value. Your competitors will have the same intel. By limiting access, we ensure you're calling prospects before the market gets saturated."
+      question: "What information is included for each property?",
+      answer: "Each record includes: Property name, full address, building age, year built, square footage, property type, estimated warranty expiration date, property owner name, property management company (if applicable), and direct phone number. Email addresses are included when available."
     },
     {
-      question: "How current is the data?",
-      answer: "We update daily from Dallas city permit databases. Most leads are flagged within 24-48 hours of the permit being filed. You'll receive email alerts as soon as new high-value projects appear."
+      question: "How do I receive the database?",
+      answer: "Within 20 minutes of purchase, you'll receive an email with a permanent download link to a CSV file. You can import this into Excel, Google Sheets, or your CRM. The link never expires, so you can download it as many times as you need."
     },
     {
-      question: "Can I export the data to my CRM?",
-      answer: "Yes. All leads come with CSV export functionality. You can easily import owner names, addresses, project types, and permit details into Salesforce, HubSpot, or any CRM you use."
+      question: "Can I buy an updated version later?",
+      answer: "Yes. Approximately 6 months after your purchase, we'll notify you when an updated database is available. You can repurchase to get fresh data with newly expiring warranties and updated contact information."
+    },
+    {
+      question: "Why only 5 copies?",
+      answer: "Scarcity protects value. If we sell to everyone, the data becomes worthless—every roofer in Orlando would be calling the same 70 property owners. By limiting sales to 5, you get a real competitive advantage with minimal market saturation."
     }
   ];
 
@@ -37,7 +41,7 @@ const FAQ = () => {
             Common <span className="text-primary">Questions</span>
           </h2>
           <p className="text-xl text-muted-foreground">
-            Everything you need to know about Dallas Roof Radar
+            Everything you need to know about the Orlando Commercial Roof Database
           </p>
         </div>
 
