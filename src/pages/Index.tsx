@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Hero from "@/components/Hero";
-import SecretSauce from "@/components/SecretSauce";
+import WhyThisExists from "@/components/WhyThisExists";
 import LiveFeed from "@/components/LiveFeed";
-import TryBeforeYouBuy from "@/components/TryBeforeYouBuy";
+import FreeSampleSection from "@/components/FreeSampleSection";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
 import WaitlistModal from "@/components/WaitlistModal";
+import ScarcityBanner from "@/components/ScarcityBanner";
 
 const Index = () => {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
@@ -19,10 +20,11 @@ const Index = () => {
 
   return (
     <main className="min-h-screen">
+      <ScarcityBanner />
       <Hero onOpenWaitlist={handleOpenWaitlist} />
-      <SecretSauce />
+      <WhyThisExists />
       <LiveFeed />
-      <TryBeforeYouBuy onOpenFreeLead={() => handleOpenWaitlist('free-lead')} />
+      <FreeSampleSection />
       <Pricing onOpenWaitlist={() => handleOpenWaitlist('waitlist')} />
       <FAQ />
       <Footer />
