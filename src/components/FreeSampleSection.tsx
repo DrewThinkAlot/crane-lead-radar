@@ -37,6 +37,15 @@ const FreeSampleSection = () => {
     };
 
     fetchSamples();
+
+    // Track sample view
+    const logSampleView = async () => {
+      await supabase
+        .from('sample_views')
+        .insert({});
+    };
+
+    logSampleView();
   }, []);
 
   if (loading) {
