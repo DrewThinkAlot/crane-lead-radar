@@ -1,20 +1,65 @@
+import { useEffect, useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Check, AlertTriangle } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface PricingProps {
   onOpenWaitlist: (mode?: 'waitlist' | 'free-lead') => void;
 }
 
 const Pricing = ({ onOpenWaitlist }: PricingProps) => {
+  const [remaining, setRemaining] = useState<number | null>(null);
+  const MAX_COPIES = 5;
+
+  useEffect(() => {
+    const fetchPurchaseCount = async () => {
+      const { count, error } = await supabase
+        .from('database_purchases')
+        .select('*', { count: 'exact', head: true })
+        .eq('payment_status', 'completed');
+
+      if (error) {
+        console.error('Error fetching purchase count:', error);
+      } else {
+        const purchased = count || 0;
+        setRemaining(Math.max(0, MAX_COPIES - purchased));
+      }
+    };
+
+    fetchPurchaseCount();
+
+    // Set up realtime subscription
+    const channel = supabase
+      .channel('pricing_purchases_changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'database_purchases'
+        },
+        () => {
+          fetchPurchaseCount();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
   const features = [
-    "Daily Email Alerts",
-    "CSV Export for CRM",
-    "Direct Owner Names & Contact Info",
-    "No Long-Term Contracts",
-    "Priority Support"
+    "70 Commercial Properties in Orlando",
+    "15+ Years Old (Warranties Expiring)",
+    "Owner Names & Direct Phone Numbers",
+    "Property Details & Permit History",
+    "Permanent CSV Download Link"
   ];
+
+  const isSoldOut = remaining === 0;
 
   return (
     <section className="py-24 px-4">
@@ -22,25 +67,25 @@ const Pricing = ({ onOpenWaitlist }: PricingProps) => {
         <div className="text-center mb-16">
           <Badge variant="destructive" className="mb-4 px-4 py-2">
             <AlertTriangle className="w-4 h-4 mr-2" />
-            STRICTLY LIMITED ACCESS
+            STRICTLY LIMITED - ONLY 5 COPIES SOLD
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Pricing That Protects <span className="text-primary">Your Edge</span>
+            One-Time Payment. <span className="text-primary">Permanent Access.</span>
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            To protect the value of the data, we only sell 3 subscriptions per city
+            We limit sales to 5 copies to protect the value of the data for buyers
           </p>
         </div>
 
         <Card className="glass-card overflow-hidden max-w-md mx-auto">
           {/* Scarcity banner */}
-          <div className="bg-destructive/20 border-b border-destructive/30 px-6 py-3 text-center">
-            <p className="text-destructive font-semibold flex items-center justify-center gap-2">
+          <div className={`${isSoldOut ? 'bg-destructive/20 border-destructive/30' : 'bg-primary/20 border-primary/30'} border-b px-6 py-3 text-center`}>
+            <p className={`${isSoldOut ? 'text-destructive' : 'text-primary'} font-semibold flex items-center justify-center gap-2`}>
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-destructive opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-destructive"></span>
+                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${isSoldOut ? 'bg-destructive' : 'bg-primary'} opacity-75`}></span>
+                <span className={`relative inline-flex rounded-full h-2 w-2 ${isSoldOut ? 'bg-destructive' : 'bg-primary'}`}></span>
               </span>
-              1 Seat Remaining in Dallas
+              {isSoldOut ? 'SOLD OUT' : `${remaining} OF 5 REMAINING`}
             </p>
           </div>
 
@@ -48,10 +93,10 @@ const Pricing = ({ onOpenWaitlist }: PricingProps) => {
             {/* Price */}
             <div className="text-center mb-8">
               <div className="text-5xl font-bold mb-2">
-                $299
-                <span className="text-xl text-muted-foreground font-normal">/month</span>
+                $499
+                <span className="text-xl text-muted-foreground font-normal"> one-time</span>
               </div>
-              <p className="text-muted-foreground">Billed monthly • Cancel anytime</p>
+              <p className="text-muted-foreground">No subscription • Permanent access</p>
             </div>
 
             {/* Features */}
@@ -67,20 +112,30 @@ const Pricing = ({ onOpenWaitlist }: PricingProps) => {
             </ul>
 
             {/* CTA */}
-            <Button 
-              className="w-full text-lg py-6 orange-glow hover:scale-105 transition-transform"
-              size="lg"
-              onClick={() => onOpenWaitlist('waitlist')}
-            >
-              Secure Your Spot Now
-            </Button>
+            {isSoldOut ? (
+              <Button 
+                className="w-full text-lg py-6 hover:scale-105 transition-transform"
+                size="lg"
+                onClick={() => onOpenWaitlist('waitlist')}
+              >
+                Join Waitlist for Next Release
+              </Button>
+            ) : (
+              <Button 
+                className="w-full text-lg py-6 orange-glow hover:scale-105 transition-transform"
+                size="lg"
+                onClick={() => onOpenWaitlist('waitlist')}
+              >
+                Buy Database Now
+              </Button>
+            )}
 
             <p className="text-center text-sm text-muted-foreground mt-4">
-              No setup fees • 14-day money-back guarantee
+              Delivered within 20 minutes via email
             </p>
             
             <p className="text-center text-xs text-muted-foreground mt-2">
-              Not sure yet? <button onClick={() => onOpenWaitlist('free-lead')} className="text-secondary hover:underline font-semibold">Get one lead free first →</button>
+              Want to see the data first? <button onClick={() => onOpenWaitlist('free-lead')} className="text-secondary hover:underline font-semibold">View 3 sample records above →</button>
             </p>
           </div>
         </Card>
