@@ -1,13 +1,11 @@
 import { Building2 } from "lucide-react";
-
 const Footer = () => {
-  return (
-    <footer className="border-t border-border py-12 px-4">
+  return <footer className="border-t border-border py-12 px-4">
       <div className="container max-w-6xl">
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
             <Building2 className="w-6 h-6 text-primary" />
-            <span className="font-bold text-xl">Dallas Roof Radar</span>
+            <span className="font-bold text-xl">Roof Cipher            </span>
           </div>
 
           <div className="flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
@@ -33,8 +31,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
