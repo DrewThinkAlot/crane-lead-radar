@@ -52,7 +52,7 @@ const Pricing = ({ onOpenWaitlist }: PricingProps) => {
   }, []);
 
   const features = [
-    "70 Commercial Properties in Orlando",
+    "50 Commercial Properties in Orlando",
     "15+ Years Old (Warranties Expiring)",
     "Owner Names & Direct Phone Numbers",
     "Property Details & Permit History",

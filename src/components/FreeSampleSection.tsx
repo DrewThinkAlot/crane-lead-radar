@@ -82,7 +82,7 @@ const FreeSampleSection = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-terminal-text opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-terminal-text"></span>
               </span>
-              SAMPLE_RECORDS.DB // 3 OF 70 TOTAL
+              SAMPLE_RECORDS.DB // 3 OF 50 TOTAL
             </p>
           </div>
           
@@ -122,7 +122,7 @@ const FreeSampleSection = () => {
         {/* Note */}
         <div className="text-center mt-8">
           <p className="text-sm text-muted-foreground">
-            <span className="text-secondary font-semibold">All 70 records</span> include property name, full address, building age, warranty expiration date, owner name, and direct phone number
+            <span className="text-secondary font-semibold">All 50 records</span> include property name, full address, building age, warranty expiration date, owner name, and direct phone number
           </p>
         </div>
       </div>
