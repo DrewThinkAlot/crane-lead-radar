@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Hero from "@/components/Hero";
 import WhyThisExists from "@/components/WhyThisExists";
-import LiveFeed from "@/components/LiveFeed";
+
 import FreeSampleSection from "@/components/FreeSampleSection";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
@@ -23,7 +23,7 @@ const Index = () => {
       <ScarcityBanner />
       <Hero onOpenWaitlist={handleOpenWaitlist} />
       <WhyThisExists />
-      <LiveFeed />
+      
       <FreeSampleSection />
       <Pricing onOpenWaitlist={() => handleOpenWaitlist('waitlist')} />
       <FAQ />
