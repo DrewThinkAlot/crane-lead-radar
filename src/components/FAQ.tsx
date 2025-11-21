@@ -29,7 +29,7 @@ const FAQ = () => {
     },
     {
       question: "Why only 5 copies?",
-      answer: "Scarcity protects value. If we sell to everyone, the data becomes worthless—every roofer in Orlando would be calling the same 70 property owners. By limiting sales to 5, you get a real competitive advantage with minimal market saturation."
+      answer: "Scarcity protects value. If we sell to everyone, the data becomes worthless—every roofer in Orlando would be calling the same 50 property owners. By limiting sales to 5, you get a real competitive advantage with minimal market saturation."
     }
   ];
 

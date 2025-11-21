@@ -5,7 +5,7 @@ const WhyThisExists = () => {
   const features = [
     {
       icon: DollarSign,
-      title: "70 Properties. $499. That's $7.13 per lead.",
+      title: "50 Properties. $499. That's $9.98 per lead.",
       description: "Close one deal and you've made your money back 10x over. This isn't a subscription that bleeds you dry—it's a one-time investment in your pipeline."
     },
     {

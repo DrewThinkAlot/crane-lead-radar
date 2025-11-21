@@ -34,15 +34,15 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
         <div className="text-center space-y-8 animate-slide-up">
           {/* Badge */}
           <div className="flex justify-center">
-            <Badge variant="secondary" className="px-4 py-2 text-sm font-mono bg-secondary/20 text-secondary border border-secondary/30 green-glow">
+          <Badge variant="secondary" className="px-4 py-2 text-sm font-mono bg-secondary/20 text-secondary border border-secondary/30 green-glow">
               <TrendingUp className="w-4 h-4 mr-2" />
-              70 Commercial Buildings. Warranties Expiring.
+              50 Commercial Buildings. Warranties Expiring.
             </Badge>
           </div>
 
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-            70 Commercial Buildings in Orlando.{" "}
+            50 Commercial Buildings in Orlando.{" "}
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Warranties Expiring. Owners Ready to Buy.
             </span>
