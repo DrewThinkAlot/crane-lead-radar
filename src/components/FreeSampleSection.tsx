@@ -108,11 +108,8 @@ const FreeSampleSection = () => {
                     <td className="px-4 py-4 text-foreground">{record.property_name}</td>
                     <td className="px-4 py-4 text-foreground">{record.address}</td>
                     <td className="px-4 py-4 text-secondary font-semibold">{record.building_age} yrs</td>
-                    <td className="px-4 py-4 text-primary">
-                      {new Date(record.estimated_warranty_expiration).toLocaleDateString('en-US', { 
-                        month: 'short', 
-                        year: 'numeric' 
-                      })}
+                    <td className="px-4 py-4 text-destructive font-semibold">
+                      EXPIRED
                     </td>
                     <td className="px-4 py-4 text-muted-foreground italic">{record.contact_note}</td>
                   </tr>
