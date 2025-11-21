@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Database from "./pages/admin/Database";
 import Login from "./pages/admin/Login";
+import Success from "./pages/Success";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/success" element={<Success />} />
           <Route path="/admin/login" element={<Login />} />
           <Route path="/admin/database" element={<Database />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

@@ -52,17 +52,17 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send notification to the business owner
     const ownerEmail = await resend.emails.send({
-      from: "Dallas Roof Radar <onboarding@resend.dev>",
+      from: "Orlando Roof Database <onboarding@resend.dev>",
       to: ["aclyder@gmail.com"],
-      subject: "🎯 New Free Lead Request",
+      subject: "🎯 New Free Sample Request",
       html: `
-        <h2>New Free Lead Request Received</h2>
+        <h2>New Free Sample Request Received</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Company:</strong> ${company}</p>
         <p><strong>Requested at:</strong> ${new Date().toLocaleString()}</p>
         <hr>
-        <p style="color: #666; font-size: 12px;">Follow up immediately to send them their free lead!</p>
+        <p style="color: #666; font-size: 12px;">Follow up to provide access to the 3 sample records!</p>
       `,
     });
 
@@ -70,23 +70,25 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation to the prospect
     const prospectEmail = await resend.emails.send({
-      from: "Dallas Roof Radar <onboarding@resend.dev>",
+      from: "Orlando Roof Database <onboarding@resend.dev>",
       to: [email],
-      subject: "Your Free Lead is On The Way!",
+      subject: "Your Free Sample Records Are Ready!",
       html: `
         <h1>Thanks for your interest, ${name}!</h1>
-        <p>We're preparing your free high-value commercial roofing lead right now.</p>
-        <p>You'll receive it within the next 2 minutes at this email address.</p>
-        <p>This lead will show you exactly what kind of exclusive data we track:</p>
+        <p>We're sending you access to 3 sample records from our Orlando Commercial Roofing Database.</p>
+        <p>You'll receive them within the next 2 minutes at this email address.</p>
+        <p>These samples will show you exactly what kind of exclusive data we've compiled:</p>
         <ul>
-          <li>Direct property owner contact information</li>
-          <li>Crane and Right-of-Way permit details</li>
-          <li>Estimated project value</li>
-          <li>Filed date and status</li>
+          <li>Property owner names and contact information</li>
+          <li>Direct phone numbers and email addresses</li>
+          <li>Building details and square footage</li>
+          <li>Warranty expiration dates</li>
+          <li>Last roof permit dates</li>
         </ul>
-        <p><strong>Want more leads like this?</strong> <a href="https://dallasroofradar.com">Check availability in Dallas</a></p>
+        <p><strong>Ready for all 50 properties?</strong> The complete database includes buildings with warranties expiring now - owners ready to buy.</p>
+        <p>Only 5 copies available. <a href="${Deno.env.get("SUPABASE_URL") || 'https://your-domain.com'}">Secure your exclusive access</a></p>
         <hr>
-        <p style="color: #666; font-size: 12px;">Dallas Roof Radar - Exclusive Commercial Roofing Leads</p>
+        <p style="color: #666; font-size: 12px;">Orlando Commercial Roofing Database - Exclusive Market Intelligence</p>
       `,
     });
 

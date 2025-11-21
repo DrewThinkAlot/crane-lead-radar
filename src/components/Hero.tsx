@@ -5,7 +5,7 @@ import { Building2, TrendingUp, AlertCircle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface HeroProps {
-  onOpenWaitlist: (mode?: 'waitlist' | 'free-lead') => void;
+  onOpenWaitlist: (mode?: 'waitlist' | 'free-lead' | 'purchase') => void;
 }
 
 const Hero = ({ onOpenWaitlist }: HeroProps) => {
@@ -80,7 +80,7 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
               <Button 
                 size="lg" 
                 className="text-lg px-8 py-6 orange-glow hover:scale-105 transition-transform"
-                onClick={() => onOpenWaitlist('waitlist')}
+                onClick={() => onOpenWaitlist('purchase')}
               >
                 <Building2 className="w-5 h-5 mr-2" />
                 Buy Database for $499
