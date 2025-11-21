@@ -2,7 +2,6 @@ import { useState } from "react";
 import Hero from "@/components/Hero";
 import WhyThisExists from "@/components/WhyThisExists";
 import LiveFeed from "@/components/LiveFeed";
-import FreeSampleSection from "@/components/FreeSampleSection";
 import Pricing from "@/components/Pricing";
 import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
@@ -24,7 +23,6 @@ const Index = () => {
       <Hero onOpenWaitlist={handleOpenWaitlist} />
       <WhyThisExists />
       <LiveFeed />
-      <FreeSampleSection />
       <Pricing onOpenWaitlist={() => handleOpenWaitlist('waitlist')} />
       <FAQ />
       <Footer />
