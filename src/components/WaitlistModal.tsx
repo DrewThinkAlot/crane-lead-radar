@@ -11,13 +11,14 @@ import { z } from "zod";
 interface WaitlistModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  mode?: 'waitlist' | 'free-lead';
+  mode?: 'waitlist' | 'free-lead' | 'purchase';
 }
 
 const formSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
   email: z.string().trim().email("Invalid email address").max(255),
   company: z.string().trim().min(1, "Company is required").max(100),
+  phone: z.string().trim().min(1, "Phone is required").max(20),
 });
 
 const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalProps) => {
@@ -26,6 +27,7 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
     name: "",
     email: "",
     company: "",
+    phone: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,7 +40,33 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
       
       setIsSubmitting(true);
 
-      if (mode === 'free-lead') {
+      if (mode === 'purchase') {
+        // Purchase mode - create Stripe checkout session
+        const { data, error } = await supabase.functions.invoke('create-checkout-session', {
+          body: validatedData
+        });
+
+        if (error) {
+          console.error("Error creating checkout session:", error);
+          throw new Error("Failed to initiate checkout. Please try again.");
+        }
+
+        console.log("Checkout session created:", data);
+
+        // Redirect to Stripe Checkout
+        const stripe = (window as any).Stripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
+        if (!stripe) {
+          throw new Error("Stripe not loaded. Please refresh and try again.");
+        }
+
+        const { error: stripeError } = await stripe.redirectToCheckout({
+          sessionId: data.sessionId
+        });
+
+        if (stripeError) {
+          throw new Error(stripeError.message);
+        }
+      } else if (mode === 'free-lead') {
         // Call edge function to send email notifications
         const { data, error } = await supabase.functions.invoke('send-free-lead-notification', {
           body: validatedData
@@ -76,8 +104,10 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
         });
       }
 
-      onOpenChange(false);
-      setFormData({ name: "", email: "", company: "" });
+      if (mode !== 'purchase') {
+        onOpenChange(false);
+      }
+      setFormData({ name: "", email: "", company: "", phone: "" });
     } catch (error) {
       console.error("Form submission error:", error);
       
@@ -105,19 +135,24 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
         <DialogHeader>
           <div className="flex items-center gap-2 mb-2">
             <Building2 className="w-6 h-6 text-primary" />
-            <DialogTitle className="text-2xl">
-              {mode === 'free-lead' ? 'Get Your Free Lead' : 'Secure Your Spot'}
-            </DialogTitle>
+          <DialogTitle className="text-2xl">
+            {mode === 'purchase' ? 'Complete Your Purchase' : mode === 'free-lead' ? 'Get Your Free Lead' : 'Secure Your Spot'}
+          </DialogTitle>
           </div>
           <DialogDescription className="text-base">
-            {mode === 'free-lead' ? (
+            {mode === 'purchase' ? (
+              <>
+                You'll receive a permanent download link for 50 Orlando commercial buildings with expiring warranties.
+                <span className="block mt-2 text-secondary font-semibold">One-time payment of $499. Delivered within 20 minutes.</span>
+              </>
+            ) : mode === 'free-lead' ? (
               <>
                 We'll send you one high-value commercial roofing lead from last week to prove our data quality.
                 <span className="block mt-2 text-secondary font-semibold">Zero commitment. Zero risk.</span>
               </>
             ) : (
               <>
-                Join the waitlist for exclusive access to Dallas commercial roofing leads.
+                Join the waitlist for exclusive access to Orlando commercial roofing leads.
                 <span className="block mt-2 text-destructive font-semibold">Only 1 seat remaining.</span>
               </>
             )}
@@ -174,13 +209,32 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
             />
           </div>
 
-          <Button 
+          <div className="space-y-2">
+            <Label htmlFor="phone" className="flex items-center gap-2">
+              <Briefcase className="w-4 h-4" />
+              Phone Number
+            </Label>
+            <Input
+              id="phone"
+              type="tel"
+              placeholder="(555) 123-4567"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              required
+              className="bg-background border-border"
+              disabled={isSubmitting}
+            />
+          </div>
+
+          <Button
             type="submit" 
             className="w-full orange-glow text-lg py-6"
             disabled={isSubmitting}
           >
             {isSubmitting ? (
-              "Sending..."
+              mode === 'purchase' ? "Processing..." : "Sending..."
+            ) : mode === 'purchase' ? (
+              "Proceed to Payment"
             ) : mode === 'free-lead' ? (
               "Send My Free Lead"
             ) : (
@@ -189,10 +243,12 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
           </Button>
 
           <p className="text-xs text-center text-muted-foreground">
-            {mode === 'free-lead' ? (
+            {mode === 'purchase' ? (
+              "Secure checkout • Instant delivery • Permanent access"
+            ) : mode === 'free-lead' ? (
               "No credit card • No sales calls • Delivered in 2 minutes"
             ) : (
-              "Limited to 3 subscribers per city"
+              "Limited to 5 copies per release"
             )}
           </p>
         </form>
