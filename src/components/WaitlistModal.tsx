@@ -53,19 +53,17 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
 
         console.log("Checkout session created:", data);
 
-        // Redirect to Stripe Checkout
-        const stripe = (window as any).Stripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY);
-        if (!stripe) {
-          throw new Error("Stripe not loaded. Please refresh and try again.");
+        // Open Stripe Checkout in new tab
+        if (!data.url) {
+          throw new Error("No checkout URL received");
         }
 
-        const { error: stripeError } = await stripe.redirectToCheckout({
-          sessionId: data.sessionId
+        window.open(data.url, '_blank');
+        
+        toast({
+          title: "Redirecting to checkout...",
+          description: "Complete your purchase in the new tab",
         });
-
-        if (stripeError) {
-          throw new Error(stripeError.message);
-        }
       } else if (mode === 'free-lead') {
         // Call edge function to send email notifications
         const { data, error } = await supabase.functions.invoke('send-free-lead-notification', {

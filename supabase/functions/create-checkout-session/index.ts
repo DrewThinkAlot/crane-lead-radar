@@ -89,7 +89,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("Checkout session created:", session.id);
 
     return new Response(
-      JSON.stringify({ sessionId: session.id }),
+      JSON.stringify({ url: session.url }),
       {
         status: 200,
         headers: { "Content-Type": "application/json", ...corsHeaders },
