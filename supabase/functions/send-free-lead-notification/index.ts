@@ -65,7 +65,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send notification to the business owner
     const ownerEmail = await resend.emails.send({
-      from: "Orlando Roof Database <onboarding@resend.dev>",
+      from: "Orlando Roof Database <notifications@roofcipher.com>",
       to: ["aclyder@gmail.com"],
       subject: "🎯 New Free Sample Request",
       html: `
@@ -97,7 +97,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation to the prospect with all sample leads
     const prospectEmail = await resend.emails.send({
-      from: "Orlando Roof Database <onboarding@resend.dev>",
+      from: "Orlando Roof Database <notifications@roofcipher.com>",
       to: [email],
       subject: "🎯 Your 3 Free Sample Leads from Orlando Database",
       html: `
