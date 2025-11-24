@@ -6,7 +6,7 @@ import { Check, AlertTriangle } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface PricingProps {
-  onOpenWaitlist: (mode?: 'waitlist' | 'free-lead') => void;
+  onOpenWaitlist: (mode?: 'waitlist' | 'free-lead' | 'purchase') => void;
 }
 
 const Pricing = ({ onOpenWaitlist }: PricingProps) => {
@@ -124,7 +124,7 @@ const Pricing = ({ onOpenWaitlist }: PricingProps) => {
               <Button 
                 className="w-full text-lg py-6 orange-glow hover:scale-105 transition-transform"
                 size="lg"
-                onClick={() => onOpenWaitlist('waitlist')}
+                onClick={() => onOpenWaitlist('purchase')}
               >
                 Buy Database Now
               </Button>

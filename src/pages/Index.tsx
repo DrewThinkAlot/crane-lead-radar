@@ -11,9 +11,9 @@ import ScarcityBanner from "@/components/ScarcityBanner";
 
 const Index = () => {
   const [waitlistOpen, setWaitlistOpen] = useState(false);
-  const [modalMode, setModalMode] = useState<'waitlist' | 'free-lead'>('waitlist');
+  const [modalMode, setModalMode] = useState<'waitlist' | 'free-lead' | 'purchase'>('waitlist');
 
-  const handleOpenWaitlist = (mode: 'waitlist' | 'free-lead' = 'waitlist') => {
+  const handleOpenWaitlist = (mode: 'waitlist' | 'free-lead' | 'purchase' = 'waitlist') => {
     setModalMode(mode);
     setWaitlistOpen(true);
   };
