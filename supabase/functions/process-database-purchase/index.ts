@@ -90,7 +90,7 @@ const handler = async (req: Request): Promise<Response> => {
 
       // Send delivery email
       const emailResponse = await resend.emails.send({
-        from: "Orlando Roof Database <onboarding@resend.dev>",
+        from: "Orlando Roof Database <notifications@roofcipher.com>",
         to: [buyerEmail],
         subject: "🎯 Your Orlando Roofing Database is Ready",
         html: `
