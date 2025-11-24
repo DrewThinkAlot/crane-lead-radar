@@ -50,19 +50,18 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Lead request saved to database:", leadRequest);
 
-    // Fetch one random sample record
-    const { data: sampleLead, error: sampleError } = await supabase
+    // Fetch all sample records
+    const { data: sampleLeads, error: sampleError } = await supabase
       .from('public_sample_buildings')
       .select('*')
-      .limit(1)
-      .single();
+      .limit(3);
 
-    if (sampleError || !sampleLead) {
-      console.error("Failed to fetch sample lead:", sampleError);
-      throw new Error("Failed to retrieve sample lead");
+    if (sampleError || !sampleLeads || sampleLeads.length === 0) {
+      console.error("Failed to fetch sample leads:", sampleError);
+      throw new Error("Failed to retrieve sample leads");
     }
 
-    console.log("Fetched sample lead:", sampleLead.property_name);
+    console.log(`Fetched ${sampleLeads.length} sample leads`);
 
     // Send notification to the business owner
     const ownerEmail = await resend.emails.send({
@@ -82,25 +81,30 @@ const handler = async (req: Request): Promise<Response> => {
 
     console.log("Owner notification sent successfully:", ownerEmail);
 
-    // Send confirmation to the prospect with actual sample lead
+    // Generate HTML for all sample leads
+    const sampleLeadsHtml = sampleLeads.map((lead, index) => `
+      <div style="background: #f5f5f5; border-left: 4px solid #f97316; padding: 20px; margin: 20px 0; font-family: monospace;">
+        <h3 style="margin-top: 0; color: #f97316;">🏢 Sample ${index + 1}: ${lead.property_name}</h3>
+        <p><strong>📍 Address:</strong> ${lead.address}, ${lead.city || 'Orlando'}, FL ${lead.zip_code || ''}</p>
+        <p><strong>📏 Square Footage:</strong> ${lead.square_footage?.toLocaleString() || 'N/A'} sq ft</p>
+        <p><strong>🏗️ Property Type:</strong> ${lead.property_type || 'Commercial'}</p>
+        <p><strong>📅 Building Age:</strong> ${lead.building_age || 'N/A'} years (Built ${lead.year_built || 'N/A'})</p>
+        <p><strong>⚠️ Warranty Status:</strong> ${lead.estimated_warranty_expiration ? new Date(lead.estimated_warranty_expiration).toLocaleDateString() : 'Expired'}</p>
+        ${lead.property_management_company ? `<p><strong>🏢 Management:</strong> ${lead.property_management_company}</p>` : ''}
+        <p style="color: #22c55e; font-weight: bold;">💰 ${lead.contact_note || 'Ready for roof replacement'}</p>
+      </div>
+    `).join('');
+
+    // Send confirmation to the prospect with all sample leads
     const prospectEmail = await resend.emails.send({
       from: "Orlando Roof Database <onboarding@resend.dev>",
       to: [email],
-      subject: "🎯 Your Free Sample Lead from Orlando Database",
+      subject: "🎯 Your 3 Free Sample Leads from Orlando Database",
       html: `
-        <h1>Here's Your Free Sample Lead, ${name}!</h1>
-        <p>Below is one real commercial property from our exclusive Orlando database. This is exactly what you'll get with all 50 properties:</p>
+        <h1>Here Are Your 3 Free Sample Leads, ${name}!</h1>
+        <p>Below are three real commercial properties from our exclusive Orlando database. This is exactly what you'll get with all 50 properties:</p>
         
-        <div style="background: #f5f5f5; border-left: 4px solid #f97316; padding: 20px; margin: 20px 0; font-family: monospace;">
-          <h3 style="margin-top: 0; color: #f97316;">🏢 ${sampleLead.property_name}</h3>
-          <p><strong>📍 Address:</strong> ${sampleLead.address}, ${sampleLead.city || 'Orlando'}, FL ${sampleLead.zip_code || ''}</p>
-          <p><strong>📏 Square Footage:</strong> ${sampleLead.square_footage?.toLocaleString() || 'N/A'} sq ft</p>
-          <p><strong>🏗️ Property Type:</strong> ${sampleLead.property_type || 'Commercial'}</p>
-          <p><strong>📅 Building Age:</strong> ${sampleLead.building_age || 'N/A'} years (Built ${sampleLead.year_built || 'N/A'})</p>
-          <p><strong>⚠️ Warranty Status:</strong> ${sampleLead.estimated_warranty_expiration ? new Date(sampleLead.estimated_warranty_expiration).toLocaleDateString() : 'Expired'}</p>
-          ${sampleLead.property_management_company ? `<p><strong>🏢 Management:</strong> ${sampleLead.property_management_company}</p>` : ''}
-          <p style="color: #22c55e; font-weight: bold;">💰 ${sampleLead.contact_note || 'Ready for roof replacement'}</p>
-        </div>
+        ${sampleLeadsHtml}
 
         <h3>What You Get With The Full Database:</h3>
         <ul>
