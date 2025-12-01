@@ -58,7 +58,7 @@ const LiveFeed = () => {
                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                 <div className="w-3 h-3 rounded-full bg-secondary"></div>
               </div>
-              <span className="font-mono text-sm text-muted-foreground">orlando_warranty_expirations.db</span>
+              <span className="font-mono text-sm text-muted-foreground">seattle_warranty_expirations.db</span>
             </div>
             <Construction className="w-5 h-5 text-primary" />
           </div>

@@ -90,16 +90,16 @@ const handler = async (req: Request): Promise<Response> => {
 
       // Send delivery email
       const emailResponse = await resend.emails.send({
-        from: "Orlando Roof Database <notifications@roofcipher.com>",
+        from: "Seattle Roof Database <notifications@roofcipher.com>",
         to: [buyerEmail],
-        subject: "🎯 Your Orlando Roofing Database is Ready",
+        subject: "🎯 Your Seattle Roofing Database is Ready",
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h1 style="color: #f97316;">Your Database is Ready! 🎯</h1>
             
             <p>Hi ${buyerName},</p>
             
-            <p>Thank you for your purchase! Your Orlando Commercial Roofing Database is ready for download.</p>
+            <p>Thank you for your purchase! Your Seattle Commercial Roofing Database is ready for download.</p>
             
             <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h2 style="margin-top: 0;">📥 Download Your Database</h2>
@@ -109,7 +109,7 @@ const handler = async (req: Request): Promise<Response> => {
             
             <h3>What's Included:</h3>
             <ul>
-              <li>✅ <strong>50 Commercial Properties</strong> in Orlando</li>
+              <li>✅ <strong>50 Commercial Properties</strong> in Seattle</li>
               <li>✅ <strong>Property Owner Names</strong> & Contact Information</li>
               <li>✅ <strong>Phone Numbers</strong> & Email Addresses</li>
               <li>✅ <strong>Warranty Expiration Dates</strong></li>
@@ -131,17 +131,17 @@ const handler = async (req: Request): Promise<Response> => {
             </div>
             
             <h3>Need Updated Data?</h3>
-            <p>We release new data every 6 months. You'll receive an email when fresh Orlando properties are available for purchase.</p>
+            <p>We release new data every 6 months. You'll receive an email when fresh Seattle properties are available for purchase.</p>
             
             <p>Questions? Reply to this email and we'll help you get the most out of your database.</p>
             
             <p>Good luck closing deals!<br>
-            <strong>Orlando Roof Database Team</strong></p>
+            <strong>Seattle Roof Database Team</strong></p>
             
             <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
             
             <p style="font-size: 12px; color: #6b7280; text-align: center;">
-              Orlando Commercial Roofing Database<br>
+              Seattle Commercial Roofing Database<br>
               One-time purchase • Permanent access • Exclusive data
             </p>
           </div>

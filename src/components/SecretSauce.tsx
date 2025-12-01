@@ -16,7 +16,7 @@ const SecretSauce = () => {
     {
       icon: Filter,
       title: "Massive Volume",
-      description: "Orlando is booming. We track dozens of new commercial starts every month—warehouses, strip malls, apartment complexes. All before submittals close."
+      description: "Seattle is booming. We track dozens of new commercial starts every month—warehouses, strip malls, apartment complexes. All before submittals close."
     }
   ];
 

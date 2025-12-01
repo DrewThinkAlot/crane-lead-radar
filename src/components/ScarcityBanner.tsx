@@ -56,7 +56,7 @@ const ScarcityBanner = () => {
           {isSoldOut ? (
             <>SOLD OUT - Join waitlist for next update</>
           ) : (
-            <>🔴 ONLY 5 COPIES AVAILABLE IN ORLANDO | {remaining} REMAINING</>
+            <>🔴 ONLY 5 COPIES AVAILABLE IN SEATTLE | {remaining} REMAINING</>
           )}
         </p>
       </div>

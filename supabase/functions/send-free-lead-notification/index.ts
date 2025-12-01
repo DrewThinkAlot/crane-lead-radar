@@ -65,7 +65,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send notification to the business owner
     const ownerEmail = await resend.emails.send({
-      from: "Orlando Roof Database <notifications@roofcipher.com>",
+      from: "Seattle Roof Database <notifications@roofcipher.com>",
       to: ["aclyder@gmail.com"],
       subject: "🎯 New Free Sample Request",
       html: `
@@ -85,7 +85,7 @@ const handler = async (req: Request): Promise<Response> => {
     const sampleLeadsHtml = sampleLeads.map((lead, index) => `
       <div style="background: #f5f5f5; border-left: 4px solid #f97316; padding: 20px; margin: 20px 0; font-family: monospace;">
         <h3 style="margin-top: 0; color: #f97316;">🏢 Sample ${index + 1}: ${lead.property_name}</h3>
-        <p><strong>📍 Address:</strong> ${lead.address}, ${lead.city || 'Orlando'}, FL ${lead.zip_code || ''}</p>
+        <p><strong>📍 Address:</strong> ${lead.address}, ${lead.city || 'Seattle'}, WA ${lead.zip_code || ''}</p>
         <p><strong>📏 Square Footage:</strong> ${lead.square_footage?.toLocaleString() || 'N/A'} sq ft</p>
         <p><strong>🏗️ Property Type:</strong> ${lead.property_type || 'Commercial'}</p>
         <p><strong>📅 Building Age:</strong> ${lead.building_age || 'N/A'} years (Built ${lead.year_built || 'N/A'})</p>
@@ -97,18 +97,18 @@ const handler = async (req: Request): Promise<Response> => {
 
     // Send confirmation to the prospect with all sample leads
     const prospectEmail = await resend.emails.send({
-      from: "Orlando Roof Database <notifications@roofcipher.com>",
+      from: "Seattle Roof Database <notifications@roofcipher.com>",
       to: [email],
-      subject: "🎯 Your 3 Free Sample Leads from Orlando Database",
+      subject: "🎯 Your 3 Free Sample Leads from Seattle Database",
       html: `
         <h1>Here Are Your 3 Free Sample Leads, ${name}!</h1>
-        <p>Below are three real commercial properties from our exclusive Orlando database. This is exactly what you'll get with all 50 properties:</p>
+        <p>Below are three real commercial properties from our exclusive Seattle database. This is exactly what you'll get with all 50 properties:</p>
         
         ${sampleLeadsHtml}
 
         <h3>What You Get With The Full Database:</h3>
         <ul>
-          <li>✅ <strong>50 Commercial Properties</strong> in Orlando with expiring warranties</li>
+          <li>✅ <strong>50 Commercial Properties</strong> in Seattle with expiring warranties</li>
           <li>✅ <strong>Property Owner Names</strong> and direct contact information</li>
           <li>✅ <strong>Phone Numbers & Email Addresses</strong> - reach decision makers directly</li>
           <li>✅ <strong>Building Details</strong> - square footage, age, property type</li>
@@ -125,7 +125,7 @@ const handler = async (req: Request): Promise<Response> => {
         </p>
 
         <hr>
-        <p style="color: #666; font-size: 12px;">Orlando Commercial Roofing Database - Your Competitive Advantage</p>
+        <p style="color: #666; font-size: 12px;">Seattle Commercial Roofing Database - Your Competitive Advantage</p>
       `,
     });
 
