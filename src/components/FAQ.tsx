@@ -9,7 +9,7 @@ const FAQ = () => {
   const faqs = [
     {
       question: "How do you calculate warranty expiration dates?",
-      answer: "We pull the last roof permit date from Orange County records and add 20 years (the standard commercial roof warranty period). This gives property owners a clear timeline of when they'll need a replacement roof."
+      answer: "We pull the last roof permit date from King County records and add 20 years (the standard commercial roof warranty period). This gives property owners a clear timeline of when they'll need a replacement roof."
     },
     {
       question: "Why are these properties better than chasing roofing permits?",
@@ -29,7 +29,7 @@ const FAQ = () => {
     },
     {
       question: "Why only 5 copies?",
-      answer: "Scarcity protects value. If we sell to everyone, the data becomes worthless—every roofer in Orlando would be calling the same 50 property owners. By limiting sales to 5, you get a real competitive advantage with minimal market saturation."
+      answer: "Scarcity protects value. If we sell to everyone, the data becomes worthless—every roofer in Seattle would be calling the same 50 property owners. By limiting sales to 5, you get a real competitive advantage with minimal market saturation."
     }
   ];
 
@@ -41,7 +41,7 @@ const FAQ = () => {
             Common <span className="text-primary">Questions</span>
           </h2>
           <p className="text-xl text-muted-foreground">
-            Everything you need to know about the Orlando Commercial Roof Database
+            Everything you need to know about the Seattle Commercial Roof Database
           </p>
         </div>
 

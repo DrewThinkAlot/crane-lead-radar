@@ -42,7 +42,7 @@ const Hero = ({ onOpenWaitlist }: HeroProps) => {
 
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl font-bold tracking-tight leading-tight">
-            50 Commercial Buildings in Orlando.{" "}
+            50 Commercial Buildings in Seattle.{" "}
             <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Warranties Expiring. Owners Ready to Buy.
             </span>

@@ -140,7 +140,7 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
           <DialogDescription className="text-base">
             {mode === 'purchase' ? (
               <>
-                You'll receive a permanent download link for 50 Orlando commercial buildings with expiring warranties.
+                You'll receive a permanent download link for 50 Seattle commercial buildings with expiring warranties.
                 <span className="block mt-2 text-secondary font-semibold">One-time payment of $499. Delivered within 20 minutes.</span>
               </>
             ) : mode === 'free-lead' ? (
@@ -150,7 +150,7 @@ const WaitlistModal = ({ open, onOpenChange, mode = 'waitlist' }: WaitlistModalP
               </>
             ) : (
               <>
-                Join the waitlist for exclusive access to Orlando commercial roofing leads.
+                Join the waitlist for exclusive access to Seattle commercial roofing leads.
                 <span className="block mt-2 text-destructive font-semibold">Only 1 seat remaining.</span>
               </>
             )}

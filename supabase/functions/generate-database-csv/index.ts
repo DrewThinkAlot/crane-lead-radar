@@ -92,7 +92,7 @@ const handler = async (req: Request): Promise<Response> => {
     console.log("CSV content generated, uploading to storage...");
 
     // Upload to storage
-    const fileName = `orlando-roofing-database-${purchaseId}.csv`;
+    const fileName = `seattle-roofing-database-${purchaseId}.csv`;
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from('database-exports')
       .upload(fileName, csvContent, {
