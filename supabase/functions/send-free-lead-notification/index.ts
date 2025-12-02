@@ -99,9 +99,9 @@ const handler = async (req: Request): Promise<Response> => {
     const prospectEmail = await resend.emails.send({
       from: "Seattle Roof Database <notifications@roofcipher.com>",
       to: [email],
-      subject: "🎯 Your 3 Free Sample Leads from Seattle Database",
+      subject: "🎯 Your Free Sample Lead from Seattle Database",
       html: `
-        <h1>Here Are Your 3 Free Sample Leads, ${name}!</h1>
+        <h1>Here Is Your Free Sample Lead, ${name}!</h1>
         <p>Below are three real commercial properties from our exclusive Seattle database. This is exactly what you'll get with all 50 properties:</p>
         
         ${sampleLeadsHtml}
